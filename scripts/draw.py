@@ -23,7 +23,6 @@ def draw_bg(pen, length, width):
     pen.pensize(3)
     pen.penup()
 
-    #draw frame and divide it into a 3x3 grid
     draw_square(pen, 602, -301, 301)
 
     # pen.setheading(0)
@@ -37,7 +36,6 @@ def draw_bg(pen, length, width):
     pixel_length = 600/length
     pixel_width = 600/width
 
-    #draw grid in frame where each square is 40x40
     #pen.speed(50)
     pen.color("#21a6b8")
     pen.pensize(1)
@@ -52,24 +50,29 @@ def draw_bg(pen, length, width):
     
     
 
-def fill_square(pen, size, start_x, start_y, color="black"):
+def fill_square(pen, length, width, start_x, start_y, color="black"):
     pen.color(color)
     pen.penup()
     pen.setpos(start_x, start_y)
     pen.setheading(0)
     pen.pendown()
     pen.begin_fill()
-    for i in range(1,5):
-        pen.forward(size)
+    #draw a rectangle
+    for i in range(1,3):
+        pen.forward(length)
+        pen.right(90)
+        pen.forward(width)
         pen.right(90)
     pen.end_fill()
 
-def complete_image(pen, image, pallet):
+def complete_image(pen, length, width, image, pallet):
+    pixel_length = 600/length
+    pixel_width = 600/width
     for i in range(0,len(image[0])):
-        for j in range(0,len(image[0])):
+        for j in range(0,len(image)):
             print("filling square at:", i, j, pallet[image[i][j]])
-            fill_square(pen, 40, -300+(j*40), 300-(i*40), pallet[image[i][j]])
-    fill_square(pen, 1, 800, 800, "white")
+            fill_square(pen, pixel_length, pixel_width, -300+(j*pixel_length), 300-(i*pixel_width), pallet[image[i][j]])
+    fill_square(pen, 1, 1, 800, 800, "white")
     print("done")
 
 # # Testing the functions
